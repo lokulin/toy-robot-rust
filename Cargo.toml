@@ -1,4 +1,5 @@
 [package]
 name = "toyrobot"
 version = "0.0.1"
-authors = ["lokulin <lauchlin@lauchlin.com>"]
+authors = ["Lauchlin <lauchlin@lauchlin.com>"]
+
