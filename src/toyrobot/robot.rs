@@ -7,33 +7,46 @@ use std::f64::consts::PI;
 pub struct Robot {
     pub loc: Point,
     pub facing: f64,
-    pub table: Table,
+    pub table: Option<Table>,
 }
 
 impl Robot {
+    pub fn new(loc: Point, facing: f64, table: Option<Table>) -> Robot {
+        Robot { loc: loc, facing: facing, table: table }
+    }
+
     pub fn movef(self) -> Robot {
         let (x, y) = (self.facing * PI).sin_cos();
-        self.place(Point { x: x + self.loc.x, y: y + self.loc.y }, self.facing, self.table)
+        self.place(Point::new(x + self.loc.x, y + self.loc.y), self.facing, self.table)
     }
 
     pub fn left(self) -> Robot {
+        //TODO: %2?
         self.place(self.loc, self.facing - 0.5, self.table)
     }
 
     pub fn right(self) -> Robot {
+        //TODO: %2?
         self.place(self.loc, self.facing + 0.5, self.table)
     }
 
-    pub fn place(self, loc: Point, facing: f64, table: Table) -> Robot {
-        if table.contains(&loc) {
-            Robot { loc: loc, facing: facing, table: table }
-        } else {
-            self
+    pub fn place(self, loc: Point, facing: f64, table: Option<Table>) -> Robot {
+        match table {
+            Some(t) => {
+                if t.contains(&loc) {
+                    Robot::new(loc, facing, table)
+                } else {
+                    self
+                }
+            },
+            None => self
         }
     }
 
     pub fn report(&self) {
-        println!("{} {} {}", self.loc.x, self.loc.y, self.facing);
+        match self.table {
+            Some(_) => println!("{} {} {}", self.loc.x, self.loc.y, self.facing),
+            None => ()
+        }
     }
-
 }
