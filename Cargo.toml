@@ -3,3 +3,5 @@ name = "toyrobot"
 version = "0.0.1"
 authors = ["Lauchlin <lauchlin@lauchlin.com>"]
 
+[dependencies]
+regex = "0.1.29"
