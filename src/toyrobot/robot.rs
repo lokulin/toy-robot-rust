@@ -44,6 +44,7 @@ impl Robot {
     }
 
     pub fn report(&self) {
+        //TODO: Write direction string instead of internal facing representation.
         match self.table {
             Some(_) => println!("{} {} {}", self.loc.x, self.loc.y, self.facing),
             None => ()
